@@ -32,6 +32,13 @@ let localeInformation = [
     "Preffered Languages": Locale.preferredLanguages
 ] as [String : Any?]
 
+if CMDLineArgs.isEmpty {
+    for (key, value) in localeInformation {
+        print("\(key): \(value ?? "Not available")")
+    }
+    exit(0)
+}
+
 for arg in CMDLineArgs {
     switch arg {
     case "--help", "-h":
