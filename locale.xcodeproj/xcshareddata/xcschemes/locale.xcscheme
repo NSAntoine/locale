@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-a"
+            argument = "-h"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
