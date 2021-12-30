@@ -24,6 +24,7 @@ var locale: Locale {
 let localeInformation = [
     "Region Code": locale.regionCode,
     "Currency Code": locale.currencyCode,
+    "Currency Symbol": locale.currencySymbol,
     "Script Code": locale.scriptCode,
     "Locale Identifier": locale.identifier,
     "Language Code": locale.languageCode,
@@ -53,6 +54,7 @@ Options:
         print("Region Code: \(locale.regionCode ?? "Not available")")
     case "--currency", "-c":
         print("Currency Code: \(locale.currencyCode ?? "Not available")")
+        print("Currency Symbol: \(locale.currencySymbol ?? "Not available")")
     case "--script-code", "-s":
         print("Script Code: \(locale.scriptCode ?? "Not available")")
     case "--language-code", "-L":
