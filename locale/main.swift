@@ -15,12 +15,18 @@ var locale: Locale {
         guard let index = CMDLineArgs.firstIndex(of: argToParse), CMDLineArgs.indices.contains(index + 1) else {
             return Locale.current
         }
-        return Locale(identifier: CMDLineArgs[index + 1])
+        let specifiedLocale = CMDLineArgs[index + 1]
+        if specifiedLocale == "system" {
+            return NSLocale.system
+        }
+          
+        return Locale(identifier: specifiedLocale)
     }
     
     return Locale.current
 }
 
+// A dictionary containing some locale information
 let localeInformation = [
     "Region Code": locale.regionCode,
     "Currency Code": locale.currencyCode,
@@ -32,9 +38,12 @@ let localeInformation = [
     "Preffered Languages": Locale.preferredLanguages
 ] as [String : Any?]
 
+// Same as previous dictionary, however nil values are replaced by "Not available"
+let localeInformationWrapped = localeInformation.compactMapValues { $0 ?? "Not available" }
+
 if CMDLineArgs.isEmpty {
-    for (key, value) in localeInformation {
-        print("\(key): \(value ?? "Not available")")
+    for (key, value) in localeInformationWrapped {
+        print("\(key): \(value)")
     }
     exit(0)
 }
@@ -70,11 +79,11 @@ Options:
         print("Variant Code: \(locale.variantCode ?? "Not available")")
     case "--identifier", "-i":
         print("Locale Identifier: \(locale.identifier)")
-    case "--preffered-languages":
+    case "--preffered-languages", "-p":
         print("Preffered Languages: \(Locale.preferredLanguages)")
     case "--all", "-a":
-        for (key, value) in localeInformation {
-            print("\(key): \(value ?? "Not available")")
+        for (key, value) in localeInformationWrapped {
+            print("\(key): \(value)")
         }
     default:
         break
